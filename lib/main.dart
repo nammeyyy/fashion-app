@@ -3,6 +3,7 @@ import 'pages/home_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/account_page.dart';
 import 'pages/welcome_page.dart';
+import 'bottom_nav/bottom_navBar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,10 +17,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fashion Lifestyle App',
       theme: ThemeData(
-        primaryColor: const Color(0xFF79AEB2),
-        scaffoldBackgroundColor: const Color(0xFFF5EFE6),
+        primaryColor: Color(0xFF79AEB2),
+        scaffoldBackgroundColor: Color(0xFFF5EFE6),
       ),
-      home: const WelcomePage(),
+      home: WelcomePage(),
     );
   }
 }
@@ -50,14 +51,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xFF79AEB2),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
     );
