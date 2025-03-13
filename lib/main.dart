@@ -3,7 +3,7 @@ import 'pages/home_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/account_page.dart';
 import 'pages/welcome_page.dart';
-import 'bottom_nav/bottom_navBar.dart';
+import 'bottom_nav/bottom_nav.dart';
 
 void main() {
   runApp(const MyApp());
