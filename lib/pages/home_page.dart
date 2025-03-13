@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
-                    borderSide: BorderSide.none,
+                    borderSide: BorderSide(color: Colors.grey.shade100),
                   ),
                 ),
               ),
@@ -66,9 +66,9 @@ class HomePage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.only(left: 16.0),
                 children: [
-                  _buildOutfitCard('assets/images/dress.jpg', 'Minimal Chic'),
-                  _buildOutfitCard('assets/images/dress.jpg', 'Street Vibes'),
-                  _buildOutfitCard('assets/images/dress.jpg', 'Elegant Evening'),
+                  _buildOutfitCard('assets/images/minimalChic.jpg', 'Minimal Chic'),
+                  _buildOutfitCard('assets/images/streetVibes.jpg', 'Street Vibes'),
+                  _buildOutfitCard('assets/images/elegantEvening.jpg', 'Elegant Evening'),
                 ],
               ),
             ),
@@ -94,28 +94,44 @@ class HomePage extends StatelessWidget {
   Widget _buildOutfitCard(String imagePath, String title) {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Stack(
-          children: [
-            Image.asset(imagePath, width: 150, height: 200, fit: BoxFit.cover),
-            Positioned(
-              bottom: 10,
-              left: 10,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                color: Colors.black.withOpacity(0.6),
-                child: Text(
-                  title,
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ),
+      child: Container(
+        width: 150,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3), 
+              spreadRadius: 2, 
+              blurRadius: 6, 
+              offset: const Offset(2, -4), 
             ),
           ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Stack(
+            children: [
+              Image.asset(imagePath, width: 150, height: 200, fit: BoxFit.cover),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  color: Colors.black.withOpacity(0.6),
+                  child: Text(
+                    title,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+
 
   Widget _buildLuckyColorTable() {
     return SingleChildScrollView(
