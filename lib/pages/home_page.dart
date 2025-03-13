@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey,
                 spreadRadius: 2,
                 blurRadius: 6,
               ),

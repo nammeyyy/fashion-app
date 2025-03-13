@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PurchaseHistoryPage extends StatelessWidget {
-  const PurchaseHistoryPage({Key? key}) : super(key: key);
+  const PurchaseHistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class PurchaseHistoryPage extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.grey,
               shape: BoxShape.circle,
             ),
             child: Icon(icon, size: 30, color: Colors.grey[600]),

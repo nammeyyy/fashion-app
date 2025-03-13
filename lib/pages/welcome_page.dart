@@ -3,7 +3,7 @@ import 'login_page.dart';
 import 'register_page.dart';
 
 class WelcomePage extends StatelessWidget {
- const WelcomePage({Key? key}) : super(key: key);
+ const WelcomePage({super.key});
 
  @override
  Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class WelcomePage extends StatelessWidget {
                bottom: 60,
              ),
              decoration: BoxDecoration(
-               color: const Color(0xFF2F4156).withOpacity(0.8),
+               color: const Color(0xFF2F4156),
              ),
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
