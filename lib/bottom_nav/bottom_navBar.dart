@@ -5,10 +5,10 @@ class BottomNavBar extends StatelessWidget {
   final Function(int) onTap;
 
   const BottomNavBar({
-    super.key,
+    Key? key,
     required this.selectedIndex,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +16,17 @@ class BottomNavBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
+            color: Colors.grey.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
         ],
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -43,15 +43,15 @@ class BottomNavBar extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(index),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF97C2EC) : Colors.transparent,
+          color: isSelected ? const Color(0xFF79AEB2).withOpacity(0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Icon(
           icon,
-          color: isSelected ? const Color(0xFF97C2EC) : Colors.grey,
-          size: 28,
+          color: isSelected ? const Color(0xFF79AEB2) : Colors.grey,
+          size: 24,
         ),
       ),
     );
