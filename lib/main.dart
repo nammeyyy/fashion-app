@@ -17,8 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fashion Lifestyle App',
       theme: ThemeData(
-        primaryColor: Color(0xFF79AEB2),
-        scaffoldBackgroundColor: Color(0xFFF5EFE6),
+        primaryColor: Color(0xff97C2EC),
+        secondaryHeaderColor: Color(0xffAAB8FF),
+        scaffoldBackgroundColor: Color(0xFFFFFFFF),
       ),
       home: WelcomePage(),
     );

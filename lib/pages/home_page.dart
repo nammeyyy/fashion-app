@@ -6,41 +6,49 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hi, Apinya', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xFF79AEB2),
-        elevation: 0,
+      // Custom AppBar with gradient background
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xff97C2EC),
+                  Color(0xffAAB8FF),
+                ],
+              ),
+            ),
+          ),
+          title: const Text(
+            'Hi, Apinya',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent, // Make AppBar transparent
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Search Bar
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search fashion trends...',
                   prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  filled: true,
+                  fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-              ),
-            ),
-            
-            // Fashion Categories
-            SizedBox(
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                children: [
-                  _buildCategoryChip('Casual'),
-                  _buildCategoryChip('Streetwear'),
-                  _buildCategoryChip('Formal'),
-                  _buildCategoryChip('Vintage'),
-                  _buildCategoryChip('Sporty'),
-                ],
               ),
             ),
 
@@ -83,16 +91,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryChip(String label) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: Chip(
-        label: Text(label, style: const TextStyle(fontSize: 14)),
-        backgroundColor: Colors.grey[200],
-      ),
-    );
-  }
-
   Widget _buildOutfitCard(String imagePath, String title) {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
@@ -121,9 +119,9 @@ class HomePage extends StatelessWidget {
 
   Widget _buildLuckyColorTable() {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,  
+      scrollDirection: Axis.horizontal,
       child: DataTable(
-        columnSpacing: 20, 
+        columnSpacing: 20,
         columns: const [
           DataColumn(label: Text('Day', style: TextStyle(fontWeight: FontWeight.bold))),
           DataColumn(label: Text('Main Color', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -142,6 +140,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-} 
-
-
+}
