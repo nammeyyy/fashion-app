@@ -3,7 +3,7 @@ import 'pages/home_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/account_page.dart';
 import 'pages/welcome_page.dart';
-import 'bottom_nav/bottom_navBar.dart';
+import 'bottom_nav/bottom_nav.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: BottomNav(
         selectedIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),

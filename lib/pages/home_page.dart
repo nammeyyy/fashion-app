@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +121,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildLuckyColorTable() {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,  // แก้ปัญหา Overflow
+      scrollDirection: Axis.horizontal,  
       child: DataTable(
         columnSpacing: 20, 
         columns: const [
