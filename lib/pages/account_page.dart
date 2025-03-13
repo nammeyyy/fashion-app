@@ -3,7 +3,7 @@ import 'purchase_history_page.dart';
 import 'favorite_page.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class AccountPage extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
@@ -137,7 +137,7 @@ class AccountPage extends StatelessWidget {
             height: 70,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.grey,
               borderRadius: BorderRadius.circular(15),
             ),
             child: Icon(icon, size: 40, color: Colors.grey[600]),
