@@ -32,7 +32,14 @@ class WelcomePage extends StatelessWidget {
                bottom: 60,
              ),
              decoration: BoxDecoration(
-               color: const Color(0xFF2F4156).withOpacity(0.8),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[
+                  const Color(0xff97C2EC),
+                  const Color(0xffAAB8FF),
+                ],
+              ),
              ),
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
