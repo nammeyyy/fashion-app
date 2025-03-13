@@ -9,15 +9,38 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(vsync: this);
+
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && mounted) {
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(builder: (context) => const MainPage()),
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   void _onLoginPressed() {
-    // Show modal loading animation
     showDialog(
       context: context,
-      barrierDismissible: false, // Prevent closing modal by tapping outside
+      barrierDismissible: false, 
       builder: (context) {
         return Dialog(
-          backgroundColor: Colors.transparent, // Transparent background
+          backgroundColor: Colors.transparent, 
           elevation: 0,
           child: Center(
             child: Lottie.asset(
@@ -25,23 +48,18 @@ class _LoginPageState extends State<LoginPage> {
               width: 150,
               height: 150,
               fit: BoxFit.contain,
+              controller: controller,
+              onLoaded: (composition) {
+                controller.duration = composition.duration;
+                controller.forward();
+              },
             ),
           ),
         );
       },
     );
-
-    // Simulate delay before navigating
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pop(context); // Close loading modal
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const MainPage()),
-        (route) => false,
-      );
-    });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
