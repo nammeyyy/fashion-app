@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           elevation: 8,
-                          shadowColor: Colors.black.withOpacity(0.3),
+                          shadowColor: Colors.black26,
                         ),
                         child: const Text(
                           'Login',

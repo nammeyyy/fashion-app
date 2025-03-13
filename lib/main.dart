@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: BottomNav(
         selectedIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
