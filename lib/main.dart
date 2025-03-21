@@ -1,3 +1,6 @@
+import 'package:fashion_app/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'pages/home_page.dart';
 import 'pages/cart_page.dart';
@@ -5,7 +8,11 @@ import 'pages/account_page.dart';
 import 'pages/welcome_page.dart';
 import 'bottom_nav/bottom_navBar.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+   ); 
   runApp(const MyApp());
 }
 
@@ -15,6 +22,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: FirebaseAuth.instance.currentUser == null ? '/welcome' : '/home',
+      routes: {
+        '/home' : (context) => const HomePage(),
+        '/welcome' : (context) => const WelcomePage(),
+      },
       title: 'Fashion Lifestyle App',
       theme: ThemeData(
         primaryColor: Color(0xFF79AEB2),

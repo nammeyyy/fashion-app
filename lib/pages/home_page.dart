@@ -1,13 +1,24 @@
+import 'package:fashion_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String displayName = user?.displayName ?? 'guess';
+
+    if (user == null) {
+      Future.microtask(() => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage())));
+      return const Scaffold(body: Center(child: CircularProgressIndicator(),),);
+    }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hi, Apinya', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Hi, $displayName', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFF79AEB2),
         elevation: 0,
       ),
