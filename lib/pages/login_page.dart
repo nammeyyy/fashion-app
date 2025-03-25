@@ -75,10 +75,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF66A1A9),
-      body: SafeArea(
-        child: Stack(
-          children: [
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xAAB8FF).withOpacity(1),
+                Color(0x97C2EC).withOpacity(1),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        child: SafeArea(
+          child: Stack(
+            children: [
             // ปุ่มย้อนกลับ
             Positioned(
               top: 10,
@@ -112,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: 'Username/Email',
                       hintStyle: const TextStyle(
                         color: Color(0xFF66A1A9),
                       ),
@@ -217,6 +227,6 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

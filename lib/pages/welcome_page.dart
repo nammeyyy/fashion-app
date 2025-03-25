@@ -32,7 +32,14 @@ class WelcomePage extends StatelessWidget {
                bottom: 60,
              ),
              decoration: BoxDecoration(
-               color: const Color(0xFF2F4156).withOpacity(0.8),
+               gradient: LinearGradient(
+                colors: [
+                  Color(0x97C2EC).withOpacity(0.8),
+                  Color(0xAAB8FF).withOpacity(0.8),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                ),
              ),
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,9 +80,9 @@ class WelcomePage extends StatelessWidget {
                      ),
                    ),
                  ),
-                 const SizedBox(height: 15),
+                 const SizedBox(height: 8),
                  Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
+                   mainAxisAlignment: MainAxisAlignment.end,
                    children: [
                      TextButton(
                        onPressed: () {

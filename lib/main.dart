@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: FirebaseAuth.instance.currentUser == null ? '/welcome' : '/home',
+      initialRoute: FirebaseAuth.instance.currentUser == null ? '/home' : '/welcome',
       routes: {
         '/home' : (context) => const HomePage(),
         '/welcome' : (context) => const WelcomePage(),
