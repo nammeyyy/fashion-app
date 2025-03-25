@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,32 +26,20 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Search Bar
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search fashion trends...',
                   prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  filled: true,
+                  fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
+                    borderSide: BorderSide(color: Colors.grey.shade100),
                   ),
                 ),
-              ),
-            ),
-            
-            // Fashion Categories
-            SizedBox(
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                children: [
-                  _buildCategoryChip('Casual'),
-                  _buildCategoryChip('Streetwear'),
-                  _buildCategoryChip('Formal'),
-                  _buildCategoryChip('Vintage'),
-                  _buildCategoryChip('Sporty'),
-                ],
               ),
             ),
 
@@ -69,9 +57,9 @@ class HomePage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.only(left: 16.0),
                 children: [
-                  _buildOutfitCard('assets/images/dress.jpg', 'Minimal Chic'),
-                  _buildOutfitCard('assets/images/dress.jpg', 'Street Vibes'),
-                  _buildOutfitCard('assets/images/dress.jpg', 'Elegant Evening'),
+                  _buildOutfitCard('assets/images/minimalChic.jpg', 'Minimal Chic'),
+                  _buildOutfitCard('assets/images/streetVibes.jpg', 'Street Vibes'),
+                  _buildOutfitCard('assets/images/elegantEvening.jpg', 'Elegant Evening'),
                 ],
               ),
             ),
@@ -94,47 +82,53 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryChip(String label) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: Chip(
-        label: Text(label, style: const TextStyle(fontSize: 14)),
-        backgroundColor: Colors.grey[200],
-      ),
-    );
-  }
-
   Widget _buildOutfitCard(String imagePath, String title) {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Stack(
-          children: [
-            Image.asset(imagePath, width: 150, height: 200, fit: BoxFit.cover),
-            Positioned(
-              bottom: 10,
-              left: 10,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                color: Colors.black.withOpacity(0.6),
-                child: Text(
-                  title,
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ),
+      child: Container(
+        width: 150,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3), 
+              spreadRadius: 2, 
+              blurRadius: 6, 
+              offset: const Offset(2, -4), 
             ),
           ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Stack(
+            children: [
+              Image.asset(imagePath, width: 150, height: 200, fit: BoxFit.cover),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  color: Colors.black.withOpacity(0.6),
+                  child: Text(
+                    title,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
+
+
   Widget _buildLuckyColorTable() {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,  // แก้ปัญหา Overflow
+      scrollDirection: Axis.horizontal,
       child: DataTable(
-        columnSpacing: 20, 
+        columnSpacing: 20,
         columns: const [
           DataColumn(label: Text('Day', style: TextStyle(fontWeight: FontWeight.bold))),
           DataColumn(label: Text('Main Color', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -153,6 +147,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-} 
-
-
+}

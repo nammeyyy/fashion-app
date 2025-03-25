@@ -169,18 +169,21 @@ class _LoginPageState extends State<LoginPage> {
                       minimumSize: const Size(120, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
+                      )
+                          elevation: 8,
+                          shadowColor: Colors.black26.withOpacity(0.3),
+                        ),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                      elevation: 8,
-                      shadowColor: Colors.black.withOpacity(0.3),
-                    ),
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    ],
                   ),
+                      
                   // const SizedBox(height: 16),
                   // ElevatedButton(
                   //   onPressed: _register, 
@@ -222,11 +225,11 @@ class _LoginPageState extends State<LoginPage> {
                   //   ),
                   // ),
                 ],
+               ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
     ));
   }
 }

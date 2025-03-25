@@ -6,7 +6,7 @@ import 'pages/home_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/account_page.dart';
 import 'pages/welcome_page.dart';
-import 'bottom_nav/bottom_navBar.dart';
+import 'bottom_nav/bottom_nav.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,9 @@ class MyApp extends StatelessWidget {
       },
       title: 'Fashion Lifestyle App',
       theme: ThemeData(
-        primaryColor: Color(0xFF79AEB2),
-        scaffoldBackgroundColor: Color(0xFFF5EFE6),
+        primaryColor: Color(0xff97C2EC),
+        secondaryHeaderColor: Color(0xffAAB8FF),
+        scaffoldBackgroundColor: Color(0xFFFFFFFF),
       ),
       home: WelcomePage(),
     );
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -63,7 +64,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: BottomNav(
         selectedIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
