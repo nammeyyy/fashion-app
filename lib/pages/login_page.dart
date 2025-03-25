@@ -7,11 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-    );
-    runApp(const LoginPage());
-  }
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const LoginPage());
+}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -41,9 +39,9 @@ class _LoginPageState extends State<LoginPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: $e')),);
+          SnackBar(content: Text('Login failed: $e')),
+        );
       }
-      
     }
   }
 
@@ -76,19 +74,19 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xAAB8FF).withOpacity(1),
-                Color(0x97C2EC).withOpacity(1),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-        child: SafeArea(
-          child: Stack(
-            children: [
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xAAB8FF).withOpacity(1),
+            Color(0x97C2EC).withOpacity(1),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: SafeArea(
+        child: Stack(
+          children: [
             // ปุ่มย้อนกลับ
             Positioned(
               top: 10,
@@ -103,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
             ),
-          
+
             // เนื้อหาหลัก
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -159,9 +157,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-              
-                    const SizedBox(height: 24),
-                    ElevatedButton(
+
+                  const SizedBox(height: 24),
+                  ElevatedButton(
                     onPressed: _login,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFD6D0C2),
@@ -169,24 +167,21 @@ class _LoginPageState extends State<LoginPage> {
                       minimumSize: const Size(120, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
-                      )
-                          elevation: 8,
-                          shadowColor: Colors.black26.withOpacity(0.3),
-                        ),
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
-                    ],
+                      elevation: 8,
+                      shadowColor: Colors.black.withOpacity(0.3),
+                    ),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                      
                   // const SizedBox(height: 16),
                   // ElevatedButton(
-                  //   onPressed: _register, 
+                  //   onPressed: _register,
                   //   style: ElevatedButton.styleFrom(
                   //     backgroundColor: Colors.green,
                   //     foregroundColor: Colors.white,
@@ -206,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
                   // ),
                   // const SizedBox(height: 16),
                   // ElevatedButton(
-                  //   onPressed: _logout, 
+                  //   onPressed: _logout,
                   //   style: ElevatedButton.styleFrom(
                   //     backgroundColor: Colors.green,
                   //     foregroundColor: Colors.white,
@@ -225,11 +220,11 @@ class _LoginPageState extends State<LoginPage> {
                   //   ),
                   // ),
                 ],
-               ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
     ));
   }
 }
