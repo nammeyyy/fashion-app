@@ -1,35 +1,26 @@
+import 'package:fashion_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String displayName = user?.displayName ?? 'guess';
+
+    if (user == null) {
+      Future.microtask(() => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage())));
+      return const Scaffold(body: Center(child: CircularProgressIndicator(),),);
+    }
     return Scaffold(
-      // Custom AppBar with gradient background
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xff97C2EC),
-                  Color(0xffAAB8FF),
-                ],
-              ),
-            ),
-          ),
-          title: const Text(
-            'Hi, Apinya',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: Colors.transparent, // Make AppBar transparent
-        ),
+      appBar: AppBar(
+        title: Text('Hi, $displayName', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color(0xFF79AEB2),
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(

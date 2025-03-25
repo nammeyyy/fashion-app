@@ -1,155 +1,177 @@
+import 'package:fashion_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import '../main.dart';
+// import '../main.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:fashion_app/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+    );
+    runApp(const LoginPage());
+  }
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
-  late AnimationController controller;
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(vsync: this);
-
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed && mounted) {
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context, 
-          MaterialPageRoute(builder: (context) => const MainPage()),
+  Future<void> _login() async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      if (userCredential.user != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+          (route) => false,
         );
       }
-    });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed: $e')),);
+      }
+      
+    }
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  //   Future<void> _register() async {
+  //   try {
+  //     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+  //       email: _emailController.text.trim(),
+  //       password: _passwordController.text.trim(),
+  //     );
+  //     if (userCredential.user != null) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(content: Text('Registration successful!')),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Registration failed: $e')),
+  //     );
+  //   }
+  // }
 
-  void _onLoginPressed() {
-    showDialog(
-      context: context,
-      barrierDismissible: false, 
-      builder: (context) {
-        return Dialog(
-          backgroundColor: Colors.transparent, 
-          elevation: 0,
-          child: Center(
-            child: Lottie.asset(
-              'assets/animations/loading.json',
-              width: 150,
-              height: 150,
-              fit: BoxFit.contain,
-              controller: controller,
-              onLoaded: (composition) {
-                controller.duration = composition.duration;
-                controller.forward();
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-  
+  // Future<void> _logout() async {
+  //   await _auth.signOut();
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     const SnackBar(content: Text('Logged out successfully!')),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Color(0xffAAB8FF),
-              Color(0xff97C2EC),
-            ],
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xAAB8FF).withOpacity(1),
+                Color(0x97C2EC).withOpacity(1),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
         child: SafeArea(
           child: Stack(
             children: [
-              Positioned(
-                top: 10,
-                left: 10,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-                  onPressed: () => Navigator.pop(context),
+            // ปุ่มย้อนกลับ
+            Positioned(
+              top: 10,
+              left: 10,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
                 ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Login',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                        ),
+            ),
+          
+            // เนื้อหาหลัก
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Login',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintText: 'Username/Email',
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF66A1A9),
                       ),
-                      const SizedBox(height: 40),
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Username/Email',
-                          hintStyle: const TextStyle(
-                            color: Color(0xFF66A1A9),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
-                          ),
-                        ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide.none,
                       ),
-                      const SizedBox(height: 16),
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          hintStyle: const TextStyle(
-                            color: Color(0xFF66A1A9),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
-                          ),
-                        ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
                       ),
-                      const SizedBox(height: 24),
-                      ElevatedButton(
-                        onPressed: _onLoginPressed,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFD6D0C2),
-                          foregroundColor: Colors.white,
-                          minimumSize: const Size(120, 40),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF66A1A9),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
+                      ),
+                    ),
+                  ),
+              
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                    onPressed: _login,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFD6D0C2),
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(120, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      )
                           elevation: 8,
-                          shadowColor: Colors.black26,
+                          shadowColor: Colors.black26.withOpacity(0.3),
                         ),
                         child: const Text(
                           'Login',
@@ -161,12 +183,53 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       ),
                     ],
                   ),
-                ),
+                      
+                  // const SizedBox(height: 16),
+                  // ElevatedButton(
+                  //   onPressed: _register, 
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: Colors.green,
+                  //     foregroundColor: Colors.white,
+                  //     minimumSize: const Size(120, 40),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(20),
+                  //     ),
+                  //     elevation: 8,
+                  //   ),
+                  //   child: const Text(
+                  //     'Register',
+                  //     style: TextStyle(
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 16),
+                  // ElevatedButton(
+                  //   onPressed: _logout, 
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: Colors.green,
+                  //     foregroundColor: Colors.white,
+                  //     minimumSize: const Size(120, 40),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(20),
+                  //     ),
+                  //     elevation: 8,
+                  //   ),
+                  //   child: const Text(
+                  //     'Logout',
+                  //     style: TextStyle(
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+               ),
               ),
             ],
           ),
         ),
-      ),
-    );
+    ));
   }
 }
