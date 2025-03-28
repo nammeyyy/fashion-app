@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashion_app/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,11 +9,16 @@ import 'pages/account_page.dart';
 import 'pages/welcome_page.dart';
 import 'bottom_nav/bottom_nav.dart';
 
+late final FirebaseApp app;
+late final FirebaseAuth auth;
+late final FirebaseFirestore firestore;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+  app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
    ); 
+   auth = FirebaseAuth.instanceFor(app: app);
+   firestore = FirebaseFirestore.instanceFor(app: app);
   runApp(const MyApp());
 }
 
