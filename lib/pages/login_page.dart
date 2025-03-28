@@ -1,9 +1,9 @@
 import 'package:fashion_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
-// import '../main.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fashion_app/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fashion_app/main.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       if (userCredential.user != null) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(builder: (context) => const MainPage()),
           (route) => false,
         );
       }
@@ -44,31 +44,6 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-
-  //   Future<void> _register() async {
-  //   try {
-  //     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-  //       email: _emailController.text.trim(),
-  //       password: _passwordController.text.trim(),
-  //     );
-  //     if (userCredential.user != null) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text('Registration successful!')),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Registration failed: $e')),
-  //     );
-  //   }
-  // }
-
-  // Future<void> _logout() async {
-  //   await _auth.signOut();
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     const SnackBar(content: Text('Logged out successfully!')),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -179,46 +154,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  // const SizedBox(height: 16),
-                  // ElevatedButton(
-                  //   onPressed: _register,
-                  //   style: ElevatedButton.styleFrom(
-                  //     backgroundColor: Colors.green,
-                  //     foregroundColor: Colors.white,
-                  //     minimumSize: const Size(120, 40),
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(20),
-                  //     ),
-                  //     elevation: 8,
-                  //   ),
-                  //   child: const Text(
-                  //     'Register',
-                  //     style: TextStyle(
-                  //       fontSize: 16,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 16),
-                  // ElevatedButton(
-                  //   onPressed: _logout,
-                  //   style: ElevatedButton.styleFrom(
-                  //     backgroundColor: Colors.green,
-                  //     foregroundColor: Colors.white,
-                  //     minimumSize: const Size(120, 40),
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(20),
-                  //     ),
-                  //     elevation: 8,
-                  //   ),
-                  //   child: const Text(
-                  //     'Logout',
-                  //     style: TextStyle(
-                  //       fontSize: 16,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

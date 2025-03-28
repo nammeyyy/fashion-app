@@ -7,7 +7,7 @@ import 'pages/home_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/account_page.dart';
 import 'pages/welcome_page.dart';
-import 'bottom_nav/bottom_nav.dart';
+import 'bottom_nav/bottom_navBar.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: FirebaseAuth.instance.currentUser == null ? '/home' : '/welcome',
       routes: {
-        '/home' : (context) => const HomePage(),
+        '/home' : (context) => const MainPage(),
         '/welcome' : (context) => const WelcomePage(),
       },
       title: 'Fashion Lifestyle App',
@@ -39,13 +39,12 @@ class MyApp extends StatelessWidget {
         secondaryHeaderColor: Color(0xffAAB8FF),
         scaffoldBackgroundColor: Color(0xFFFFFFFF),
       ),
-      home: WelcomePage(),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -70,7 +69,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNav(
+      bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
