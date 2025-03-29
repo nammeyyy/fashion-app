@@ -5,7 +5,7 @@ import 'package:fashion_app/model/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fashion_app/main.dart';
 
-const String USER_COLLECTION_REF="User";
+const String USER_COLLECTION_REF="users";
 
 class DatabaseUser {
   final _firestore = FirebaseFirestore.instanceFor(app: app);

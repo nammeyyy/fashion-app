@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashion_app/firebase_options.dart';
+import 'package:fashion_app/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home' : (context) => const MainPage(),
         '/welcome' : (context) => const WelcomePage(),
+        '/login' : (context) => const LoginPage()
       },
       title: 'Fashion Lifestyle App',
       theme: ThemeData(
