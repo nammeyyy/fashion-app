@@ -151,5 +151,24 @@ class DatabaseProduct {
     String downloadurl = await snapshot.ref.getDownloadURL();
     return downloadurl;
   }
+
+  Future<List<Product>> fetchProducts({String? category, String? gender, String? filter}) async {
+    Query query = _firestore.collection('products');
+
+    // กรองข้อมูลตามตัวเลือก
+    if (category != null && category.isNotEmpty) {
+      query = query.where('categories', isEqualTo: category);
+    }
+    if (gender != null && gender.isNotEmpty) {
+      query = query.where('gender', isEqualTo: gender);
+    }
+    if (filter != null && filter.isNotEmpty) {
+      query = query.where('filter', isEqualTo: filter);
+    }
+
+    QuerySnapshot querySnapshot = await query.get();
+    
+    return querySnapshot.docs.map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>)).toList();
+  }
 }
 
