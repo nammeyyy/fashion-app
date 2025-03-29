@@ -3,14 +3,39 @@
 // import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
 // class RegisterController {
-//   var collection = FirebaseFirestore.instanceFor(app: app).collection("User");
-//   var data;
+    
+// final CollectionReference _usercollection = FirebaseFirestore.instance
+//       .collection('users'); 
 
-//   addData(String username, String email) async {
+//   Future <void> addData(String username, String email, String image, String uid) async {
 //     final data1 = <String, dynamic>{
 //       "username": username,
-//       "email": email
+//       "email": email,
+//       "profile image": image,
+//       "uid": uid
 //     };
-//     collection.doc(auth.currentUser!.uid).set(data1);
+//     _usercollection.add(data1);
+//   //  _usercollection.doc(uid).set(data1, SetOptions(merge: true));
 //   }
 // }
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class RegisterController {
+  final CollectionReference _userCollection = 
+      FirebaseFirestore.instance.collection('users');
+
+  Future<void> addData(String username, String email, String image, String uid) async {
+    try {
+      await _userCollection.doc(uid).set({
+        "username": username,
+        "email": email,
+        "profileImage": image,
+        "createdAt": FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      print("Error adding user data: $e");
+      rethrow;
+    }
+  }
+}

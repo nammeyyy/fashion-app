@@ -19,15 +19,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> _login() async {
+  Future<void> signInWithEmailAndPassword() async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+        email: _controllerEmail.text.trim(),
+        password: _controllerPassword.text.trim(),
       );
       if (userCredential.user != null) {
         Navigator.pushAndRemoveUntil(
@@ -52,8 +52,8 @@ class _LoginPageState extends State<LoginPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xAAB8FF).withOpacity(1),
-            Color(0x97C2EC).withOpacity(1),
+            Color(0xFFAAB8FF),
+            Color(0xFF97C2EC),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -93,9 +93,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 40),
                   TextField(
-                    controller: _emailController,
+                    controller: _controllerEmail,
                     decoration: InputDecoration(
-                      hintText: 'Username/Email',
+                      hintText: 'Email',
                       hintStyle: const TextStyle(
                         color: Color(0xFF66A1A9),
                       ),
@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 16),
                   TextField(
-                    controller: _passwordController,
+                    controller: _controllerPassword,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: _login,
+                    onPressed: signInWithEmailAndPassword,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFC8D9E6),
                       foregroundColor: Colors.white,
