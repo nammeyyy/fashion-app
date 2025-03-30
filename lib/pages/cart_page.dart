@@ -9,6 +9,8 @@ import 'package:fashion_app/pages/home_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
+  
+  get selectedCategory => null;
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -139,8 +141,8 @@ class _CartPageState extends State<CartPage> with SingleTickerProviderStateMixin
   }
 
   Widget _buildProduct() {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('products').where('category', isEqualTo: selectedCategory).snapshots(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('products').where('category', isEqualTo: widget.selectedCategory).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -176,19 +178,23 @@ class _CartPageState extends State<CartPage> with SingleTickerProviderStateMixin
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-              child: Image.network(product["image"]!, fit: BoxFit.cover, width: double.infinity),
-            ),
-          ),
+          // Expanded(
+          //   child: ClipRRect(
+          //     borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+          //     child: Image.asset(product["image"]!, fit: BoxFit.cover, width: double.infinity),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(product["productname"]!, style: const TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(product["productName"] ?? "No name", 
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(product["price"]!, style: const TextStyle(color: Colors.blueAccent)),
+            child: Text(
+              "\$${data["price"]?.toString() ?? "0.00"}", 
+              style: const TextStyle(color: Colors.blueAccent)),
           ),
           const SizedBox(height: 10),
         ],
