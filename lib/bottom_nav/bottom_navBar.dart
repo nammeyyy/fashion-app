@@ -45,12 +45,12 @@ class BottomNavBar extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF79AEB2).withOpacity(0.1) : Colors.transparent,
+          color: isSelected ? const Color(0xFF97C2EC).withOpacity(0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Icon(
           icon,
-          color: isSelected ? const Color(0xFF79AEB2) : Colors.grey,
+          color: isSelected ? const Color(0xFF97C2EC) : Color(0xAAD6D0C2),
           size: 24,
         ),
       ),
