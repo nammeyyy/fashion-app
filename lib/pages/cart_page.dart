@@ -70,7 +70,8 @@ class _CartPageState extends State<CartPage> with SingleTickerProviderStateMixin
             ),
             _buildCategoryTabs(),
             _buildFilterTabs(),
-            Expanded(child: _buildProduct()),
+            Expanded(child:
+             _buildProduct()),
           ],
         ),
     );
@@ -177,17 +178,28 @@ class _CartPageState extends State<CartPage> with SingleTickerProviderStateMixin
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           // Expanded(
           //   child: ClipRRect(
           //     borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
           //     child: Image.asset(product["image"]!, fit: BoxFit.cover, width: double.infinity),
           //   ),
           // ),
+          ConstrainedBox(constraints: BoxConstraints(
+            maxHeight: 200,
+            maxWidth: double.infinity,
+          ),
+          child: Image.asset(
+            "assets/images/dress.jpg",
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+          ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(12),
             child: Text(product["productName"] ?? "No name", 
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF97C2EC)),
             overflow: TextOverflow.ellipsis,),
           ),
           Padding(
