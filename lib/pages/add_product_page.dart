@@ -35,7 +35,7 @@ class _AddProductPageState extends State<AddProductPage> {
   // final TextEditingController _controllerGender = TextEditingController();
   // final TextEditingController _controllerFilter = TextEditingController();
 
-  final List<String> _categories = ["CLothes", "Bags", "Accessories"];
+  final List<String> _categories = ["Clothes", "Bags", "Accessories"];
   final List<String> _gender = ["Women", "Men", "Kid"];
   final List<String> _filter = ["All", "Trending", "Shirt", "Pants", "Dress"]; 
 

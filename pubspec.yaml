@@ -73,6 +73,22 @@ flutter:
     - assets/images/elegantEvening.jpg
     - assets/animations/loading.json
 
+    - assets/images/women/bags/
+    - assets/images/women/accessories/
+    - assets/images/women/clothes/dress/
+    - assets/images/women/clothes/pants/
+    - assets/images/women/clothes/shirt/
+
+    - assets/images/men/bags/men-bags.jpg
+    - assets/images/men/accessories/men-accessories.jpg
+    - assets/images/men/clothes/pants/men-pants.jpg
+    - assets/images/men/clothes/shirt/men-shirt.jpg
+
+    - assets/images/kid/bags/kid-bags.jpg
+    - assets/images/kid/accessories/kid-accessories.jpg
+    - assets/images/kid/clothes/dress/kid-dress.jpg
+    - assets/images/kid/clothes/pants/kid-pants.jpg
+    - assets/images/kid/clothes/shirt/kid-shirt.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
