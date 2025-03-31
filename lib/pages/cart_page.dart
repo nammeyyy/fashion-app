@@ -263,7 +263,7 @@ class _CartPageState extends State<CartPage>
           children: <Widget>[
             ConstrainedBox(
               constraints: BoxConstraints(
-                maxHeight: 200,
+                maxHeight: 180,
                 maxWidth: double.infinity,
               ),
               child: Image.asset(

@@ -40,6 +40,9 @@ dependencies:
   cloud_firestore: ^5.6.5
   firebase_storage: ^12.4.4 
   image_picker: ^1.1.2
+  camera: ^0.11.1
+  path_provider: ^2.1.5
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +75,12 @@ flutter:
     - assets/images/streetVibes.jpg
     - assets/images/elegantEvening.jpg
     - assets/animations/loading.json
+    - assets/images/koreanOutfit1.jpg
+    - assets/images/koreanOutfit2.jpg
+    - assets/images/koreanOutfit3.jpg
+    - assets/images/koreanOutfit4.jpg
+    - assets/images/koreanOutfit5.jpg
+    - assets/images/koreanOutfit6.jpg
 
     - assets/images/women/bags/
     - assets/images/women/accessories/

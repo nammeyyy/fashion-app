@@ -1,8 +1,10 @@
 import 'package:fashion_app/pages/login_page.dart';
 import 'package:fashion_app/service/database_user.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fashion_app/main.dart';
+import 'package:fashion_app/pages/search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +15,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String username = "";
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +89,8 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
+                  // enabled: false,
+                  controller: _searchController,
                   decoration: InputDecoration(
                     hintText: 'Search',
                     prefixIcon: const Icon(Icons.search, color: Colors.grey),
@@ -91,6 +102,23 @@ class _HomePageState extends State<HomePage> {
                     ),
                     contentPadding: const EdgeInsets.symmetric(vertical: 0),
                   ),
+                  onTap: () {
+                    final query = _searchController.text.trim();
+                    if (query.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchPage(initialQuery: query),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter a search query'),
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
 
@@ -128,7 +156,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: _buildLuckyColorTable(),
+                child: _buildColorCarousel(),
               ),
             ],
           ),
@@ -180,71 +208,119 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildLuckyColorTable() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: DataTable(
-        columnSpacing: 20,
-        columns: const [
-          DataColumn(
-              label:
-                  Text('Day', style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Main Color',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Secondary Color',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label:
-                  Text('Avoid', style: TextStyle(fontWeight: FontWeight.bold))),
-        ],
-        rows: const [
-          DataRow(cells: [
-            DataCell(Text('Monday')),
-            DataCell(Text('Yellow')),
-            DataCell(Text('White')),
-            DataCell(Text('Red'))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('Tuesday')),
-            DataCell(Text('Pink')),
-            DataCell(Text('Purple')),
-            DataCell(Text('Yellow'))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('Wednesday')),
-            DataCell(Text('Green')),
-            DataCell(Text('Black')),
-            DataCell(Text('Pink'))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('Thursday')),
-            DataCell(Text('Orange')),
-            DataCell(Text('Brown')),
-            DataCell(Text('Purple'))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('Friday')),
-            DataCell(Text('Blue')),
-            DataCell(Text('Pink')),
-            DataCell(Text('Black'))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('Saturday')),
-            DataCell(Text('Purple')),
-            DataCell(Text('Navy Blue')),
-            DataCell(Text('Green'))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('Sunday')),
-            DataCell(Text('Red')),
-            DataCell(Text('Green')),
-            DataCell(Text('Blue'))
-          ]),
-        ],
-      ),
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  Widget _buildColorCarousel() {
+    final List<Map<String, String>> colorData = [
+      {'day': 'Monday', 'main': 'Yellow', 'secondary': 'White', 'avoid': 'Red'},
+      {
+        'day': 'Tuesday',
+        'main': 'Pink',
+        'secondary': 'Purple',
+        'avoid': 'Yellow'
+      },
+      {
+        'day': '"Wednesday"',
+        'main': 'Green',
+        'secondary': 'Blue',
+        'avoid': 'Black'
+      },
+      {
+        'day': 'Thursday',
+        'main': 'Orange',
+        'secondary': 'Brown',
+        'avoid': 'Purple'
+      },
+      {
+        'day': 'Friday',
+        'main': 'Red',
+        'secondary': 'Black',
+        'avoid': 'Green'
+      },
+      {
+        'day': 'Saturday',
+        'main': 'Blue',
+        'secondary': 'Green',
+        'avoid': 'Orange'
+      },
+      {
+        'day': 'Sunday',
+        'main': 'Purple',
+        'secondary': 'Yellow',
+        'avoid': 'Pink'
+      },
+    ];
+
+    return Column(
+      children: [
+        SizedBox(
+          height: 180,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: colorData.length,
+            onPageChanged: (index) => setState(() => _currentPage = index),
+            itemBuilder: (context, index) {
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 8,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(colorData[index]['day']!,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18)),
+                      const SizedBox(height: 10),
+                      Text('Main: ${colorData[index]['main']}'),
+                      Text('Secondary: ${colorData[index]['secondary']}'),
+                      Text('Avoid: ${colorData[index]['avoid']}'),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () => _pageController.previousPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_ios),
+              onPressed: () => _pageController.nextPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('_currentPage', _currentPage));
   }
 }
 
@@ -267,5 +343,3 @@ class CustomAppBarClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
-
-
