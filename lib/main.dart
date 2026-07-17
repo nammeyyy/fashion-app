@@ -17,9 +17,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-   ); 
-   auth = FirebaseAuth.instanceFor(app: app);
-   firestore = FirebaseFirestore.instanceFor(app: app);
+  );
+  auth = FirebaseAuth.instanceFor(app: app);
+  firestore = FirebaseFirestore.instanceFor(app: app);
   runApp(const MyApp());
 }
 
@@ -29,11 +29,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: FirebaseAuth.instance.currentUser == null ? '/home' : '/welcome',
+      initialRoute:
+          FirebaseAuth.instance.currentUser == null ? '/welcome' : '/home',
       routes: {
-        '/home' : (context) => const MainPage(),
-        '/welcome' : (context) => const WelcomePage(),
-        '/login' : (context) => const LoginPage()
+        '/home': (context) => const MainPage(),
+        '/welcome': (context) => const WelcomePage(),
+        '/login': (context) => const LoginPage(),
       },
       title: 'Fashion Lifestyle App',
       theme: ThemeData(
@@ -54,7 +55,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  
+
   final List<Widget> _pages = <Widget>[
     const HomePage(),
     const CartPage(),
