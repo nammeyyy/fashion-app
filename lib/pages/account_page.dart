@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'purchase_history_page.dart'; 
 import 'favorite_page.dart';
+import 'purchase_history_page.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
