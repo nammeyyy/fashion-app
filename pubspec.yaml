@@ -34,16 +34,18 @@ dependencies:
 
     sdk: flutter
 
-  path_provider: ^2.0.11
-  camera: ^0.10.0+1
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   firebase_core: ^3.12.1
   firebase_ui_auth: ^1.16.1
   firebase_auth: ^5.5.1
+  cloud_firestore: ^5.6.5
+  firebase_storage: ^12.4.4
+  image_picker: ^1.1.2
+  camera: ^0.11.1
+  path_provider: ^2.1.5
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +78,29 @@ flutter:
     - assets/images/streetVibes.jpg
     - assets/images/elegantEvening.jpg
     - assets/animations/loading.json
+    - assets/images/koreanOutfit1.jpg
+    - assets/images/koreanOutfit2.jpg
+    - assets/images/koreanOutfit3.jpg
+    - assets/images/koreanOutfit4.jpg
+    - assets/images/koreanOutfit5.jpg
+    - assets/images/koreanOutfit6.jpg
 
+    - assets/images/women/bags/
+    - assets/images/women/accessories/
+    - assets/images/women/clothes/dress/
+    - assets/images/women/clothes/pants/
+    - assets/images/women/clothes/shirt/
+
+    - assets/images/men/bags/men-bags.jpg
+    - assets/images/men/accessories/men-accessories.jpg
+    - assets/images/men/clothes/pants/men-pants.jpg
+    - assets/images/men/clothes/shirt/men-shirt.jpg
+
+    - assets/images/kid/bags/kid-bags.jpg
+    - assets/images/kid/accessories/kid-accessories.jpg
+    - assets/images/kid/clothes/dress/kid-dress.jpg
+    - assets/images/kid/clothes/pants/kid-pants.jpg
+    - assets/images/kid/clothes/shirt/kid-shirt.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
