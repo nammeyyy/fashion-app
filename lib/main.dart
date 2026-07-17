@@ -1,4 +1,5 @@
 import 'package:fashion_app/firebase_options.dart';
+import 'package:fashion_app/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-   ); 
+  );
   runApp(const MyApp());
 }
 
@@ -22,10 +23,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: FirebaseAuth.instance.currentUser == null ? '/home' : '/welcome',
+      initialRoute:
+          FirebaseAuth.instance.currentUser == null ? '/welcome' : '/home',
       routes: {
-        '/home' : (context) => const HomePage(),
-        '/welcome' : (context) => const WelcomePage(),
+        '/home': (context) => const MainPage(),
+        '/welcome': (context) => const WelcomePage(),
+        '/login': (context) => const LoginPage()
       },
       title: 'Fashion Lifestyle App',
       theme: ThemeData(
@@ -33,7 +36,6 @@ class MyApp extends StatelessWidget {
         secondaryHeaderColor: Color(0xffAAB8FF),
         scaffoldBackgroundColor: Color(0xFFFFFFFF),
       ),
-      home: WelcomePage(),
     );
   }
 }
@@ -47,7 +49,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  
+
   final List<Widget> _pages = <Widget>[
     const HomePage(),
     const CartPage(),
